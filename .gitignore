@@ -1,0 +1,8 @@
+output/
+resources/
+Tests/
+uiautomator2/
+*.xml
+*.txt
+.idea
+__pycache__/
