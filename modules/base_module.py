@@ -3,7 +3,6 @@ This module as base class which will be used for the whole project
 """
 from random import randint
 from time import time
-import requests
 
 
 class BaseClass:

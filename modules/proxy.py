@@ -3,9 +3,7 @@ This module helps to set proxy in the device
 """
 from modules.base_module import BaseClass
 from modules.automator import Auto
-from modules.executor import CMD
 import uiautomator2 as u2
-import requests
 
 PACKAGE_NAME = "io.oxylabs.proxymanager"
 

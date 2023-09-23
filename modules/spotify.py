@@ -6,7 +6,6 @@ This Module plays music from a playlist in spotify
 from modules.automator import Auto
 from modules.executor import CMD
 from modules.base_module import BaseClass
-import requests
 PACKAGE_NAME = "com.spotify.music"
 MAIN_ACTIVITY = "com.spotify.music.MainActivity"
 

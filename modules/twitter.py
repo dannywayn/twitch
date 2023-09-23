@@ -1,11 +1,9 @@
 """
 This module will be used to automate Twitter
 """
-import time
 from modules.automator import Auto
 from modules.executor import CMD
 from modules.base_module import BaseClass
-import requests
 PACKAGE_NAME = "com.twitter.android"
 START_ACTIVITY = "com.twitter.android.StartActivity"
 MAIN_ACTIVITY = "com.twitter.app.main.MainActivity"

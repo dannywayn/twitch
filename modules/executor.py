@@ -2,7 +2,6 @@
 This module helps to run commands.
 """
 import subprocess
-import requests
 
 
 class CMD:

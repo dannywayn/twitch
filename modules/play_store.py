@@ -2,11 +2,12 @@
 This module helps to perform different activities on playstore
 """
 import time
-from modules.automator import Auto
-from modules.executor import CMD
+
 from modules.adb import ADB
+from modules.automator import Auto
 from modules.base_module import BaseClass
-import requests
+from modules.executor import CMD
+
 PACKAGE_NAME = "com.android.vending"
 MAIN_ACTIVITY = "com.google.android.finsky.activities.MainActivity"
 

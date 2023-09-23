@@ -3,7 +3,6 @@ import time
 from typing import Callable
 from modules.executor import CMD
 import sys
-import requests
 
 ADB_HOST = '127.0.0.1'
 ADB_PORT = 5037

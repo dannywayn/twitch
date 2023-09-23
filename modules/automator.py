@@ -8,7 +8,6 @@ from typing import Callable
 import time
 from modules.base_module import BaseClass
 import re
-import requests
 
 
 class Auto:
