@@ -21,7 +21,6 @@ from PySide6.QtWidgets import (QAbstractItemView, QApplication, QCheckBox, QFram
     QPlainTextEdit, QPushButton, QSizePolicy, QSpacerItem,
     QSpinBox, QTabWidget, QTableWidget, QTableWidgetItem,
     QVBoxLayout, QWidget)
-import requests
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -526,7 +525,7 @@ class Ui_MainWindow(object):
 
         self.emu = QCheckBox(self.tab)
         self.emu.setObjectName(u"emu")
-        self.emu.setChecked(True)
+        self.emu.setChecked(False)
 
         self.verticalLayout_9.addWidget(self.emu)
 
