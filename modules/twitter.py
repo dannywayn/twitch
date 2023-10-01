@@ -29,7 +29,7 @@ class Twitter(BaseClass):
             if Auto.click(lambda: self.device(resourceId="com.android.chrome:id/terms_accept"), self.device):
                 Auto.click(lambda: self.device(resourceId="com.android.chrome:id/negative_button"), self.device)
             Auto.time_out = 10
-            Auto.click(lambda: self.device(textContains="twitch.tv"), self.device)
+            Auto.click(lambda: self.device(textContains="twitch.tv", clickable="true", focusable="true"), self.device)
             if self.parent.app_wait("tv.twitch.android.app"):
                 Auto.click(lambda: self.device(text="Accept Cookies"), self.device)
                 BaseClass.sleep(*BaseClass.twitch_stream_time)

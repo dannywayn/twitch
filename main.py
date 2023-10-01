@@ -16,6 +16,7 @@ from modules import Twitter
 from modules import Spotify
 from modules import Twitch
 from modules import OXY
+from modules import Emulator
 import sys
 import threading
 from random import choice, randint
@@ -39,6 +40,10 @@ def write_log(log):
             file.write(f'{log}\n')
     except:
         pass
+
+
+
+BaseClass.write_log = write_log
 
 
 def write_xml(device):
@@ -94,18 +99,19 @@ class Main(QMainWindow):
         BaseClass.twitch_profiles = [i for i in self.ui.twitch_profiles.toPlainText().splitlines() if len(i) > 3]
         BaseClass.twitch_stream_time = [self.ui.twit_min.value(), self.ui.twit_max.value()]
         BaseClass.spotify_stream_time = [self.ui.spot_min.value(), self.ui.spot_max.value()]
-        BaseClass.emu = self.ui.emu.checkState()
         threads = []
         for device in self.twitch_devices + self.spotify_devices:
             if device.state != "Running":
-                thread = threading.Thread(target=device.start)
+                device.state = "Running"
+                thread = {"thread": threading.Thread(target=device.start), "device": device}
                 threads.append(thread)
-                thread.start()
-        device_count = len(self.twitch_devices + self.spotify_devices)
-        self.ui.running_devices.setText("Running Devices: {}/{}".format(len(threads), device_count))
+                thread["thread"].start()
+        device_count = len([device for device in self.twitch_devices + self.spotify_devices if device.state == "Running"])
+        self.ui.running_devices.setText("Running Devices: {}/{}".format(device_count, len(self.twitch_devices + self.spotify_devices)))
         for thread in threads:
-            while thread.is_alive():
+            while thread["thread"].is_alive():
                 continue
+            thread["device"].state = "Stopped"
             threads.remove(thread)
             self.ui.running_devices.setText("Running Devices: {}/{}".format(len(threads), device_count))
 
@@ -120,6 +126,12 @@ class Main(QMainWindow):
         self.ui.stop.setEnabled(True)
 
     def closeEvent(self, event):
+        for device in self.twitch_devices + self.spotify_devices:
+            if device.emu:
+                try:
+                    device.emu.power(False)
+                except:
+                    pass
         os.kill(os.getpid(), SIGTERM)
 
     def save_devices(self):
@@ -220,9 +232,27 @@ class Interface(Main):
 
     # -- Devices Page -- #
 
-    def add_devices(self, category: str, devices: list = []):
-        if not devices:
-            devices = self.add_device.run(self.twitch_devices + self.spotify_devices)
+    def load_devices(self, devices, device_num, category):
+        self.setEnabled(False)
+        try:
+            for _ in range(device_num):
+                emu = Emulator()
+                device = Device(serial=f"127.0.0.1:{emu.port}", emu=emu)
+                devices.append(device)
+        except:
+            write_log(traceback.format_exc())
+        self.add_devices(category, devices, True)
+        self.setEnabled(True)
+
+    def add_devices(self, category: str, devices: list = [], loading: bool = False):
+        device_num = 0
+        if not devices and not loading:
+            devices, device_num = self.add_device.run(self.twitch_devices + self.spotify_devices)
+
+        if device_num:
+            threading.Thread(target=self.load_devices, args=[devices, device_num, category]).start()
+            return
+
         for device in devices:
             setattr(device, "category", category)
         setattr(self, f"{category}_devices", getattr(self, f"{category}_devices") + devices)
@@ -424,14 +454,19 @@ class AddDeviceInterface(QDialog):
         self.ui.select_all.clicked.connect(lambda: self.select(True))
         self.ui.select_by_number.clicked.connect(lambda: self.ui.number.setEnabled(self.ui.select_by_number.checkState()))
 
+    def reset(self):
+        self.devices.clear()
+        self.ui.emus.setValue(0)
+
     def run(self, devices: list):
         try:
             self.connected_devices = devices
             threading.Thread(target=self.init_devices).start()
             self.exec()
             devices = self.get_selected_devices()
-            self.devices.clear()
-            return devices
+            emus = self.ui.emus.value()
+            self.reset()
+            return devices, emus
         except:
             return []
 
@@ -585,11 +620,24 @@ class AddAccountInterface(QDialog):
 class Device:
     def __init__(self, device=None, name: str = "", serial: str = "", category: str = "", google_accounts={},
                  twitch_accounts={}, spotify_accounts={}, **kwargs):
+        emu = kwargs.get("emu", None)
+        if isinstance(emu, Emulator):
+            self.emu = emu
+        elif isinstance(emu, dict):
+            self.emu = Emulator(name=emu['name'], port=emu['port'])
+        else:
+            self.emu = None
         if device:
             serial = device.serial
         elif not serial:
             raise ValueError("missing device information")
+        if self.emu and not name:
+            self.power_emu()
         self.device = u2.Device(serial_or_url=serial)
+        if self.emu:
+            self.device.emu = True
+        else:
+            self.device.emu = False
         self.__state = "Ready"
         self.__success = 0
         self.__fails = 0
@@ -608,6 +656,11 @@ class Device:
         self.play_store = PlayStore(self)
         self.oxy = OXY(self)
 
+    def power_emu(self):
+        self.emu.power()
+        temp_device = adb.device(f"127.0.0.1:{self.emu.port}")
+        temp_device.wait_boot_complete()
+
     @property
     def to_json(self):
         data = {
@@ -617,8 +670,12 @@ class Device:
                 "category": self.category,
                 "google_accounts": self.google_accounts,
                 "twitch_accounts": self.twitch_accounts,
-                "spotify_accounts": self.spotify_accounts
-            }
+                "spotify_accounts": self.spotify_accounts,
+                "emu": {
+                    "name": "" if not self.emu else self.emu.name,
+                    "port": None if not self.emu else self.emu.port
+                }
+            },
         }
         return data
 
@@ -699,15 +756,23 @@ class Device:
 
     def start(self):
         try:
-            self.reject_password_save()
+            if self.status != "Offline":
+                self.reject_password_save()
             if not self.check_resources():
                 BaseClass.logger_signal.emit({"msg": f"{self.name} stopped due to not enough resources were provided."})
                 return
             if self.status == "Offline":
-                self.update_device()
-                BaseClass.logger_signal.emit({"msg": f"{self.name} Device not available"})
-                return
-            self.state = "Running"
+                if not self.emu:
+                    self.update_device()
+                    BaseClass.logger_signal.emit({"msg": f"{self.name} Device not available"})
+                    return
+                else:
+                    self.power_emu()
+                    if self.status == "Offline":
+                        self.update_device()
+                        BaseClass.logger_signal.emit({"msg": f"{self.name} Device not available"})
+                        return
+                    self.update_device()
             login = False
             error_count = {
                 "twitch": 0,
@@ -716,7 +781,7 @@ class Device:
             packages = ["com.spotify.music", "tv.twitch.android.app", "com.twitter.android", "io.oxylabs.proxymanager"]
             avail = adb.list_packages(self.serial)
             for package in packages:
-                if package not in avail:
+                if package not in avail and not self.emu:
                     login = True
                     break
             if login:
@@ -726,12 +791,12 @@ class Device:
                     self.state = "Stopped"
                     return
 
-            for package in packages:
-                if package not in avail:
-                    if not self.play_store.install_app(package):
-                        BaseClass.logger_signal.emit({"msg": f"{self.name} Failed to install {package}"})
-                        self.state = "Stopped"
-                        return
+                for package in packages:
+                    if package not in avail:
+                        if not self.play_store.install_app(package):
+                            BaseClass.logger_signal.emit({"msg": f"{self.name} Failed to install {package}"})
+                            self.state = "Stopped"
+                            return
 
             while BaseClass.running and self.status == "Online" and (error_count["spotify"] < 5 or error_count["twitch"] < 5):
                 if self.spotify_accounts and BaseClass.spotify_links:

@@ -3,6 +3,7 @@ This module as base class which will be used for the whole project
 """
 from random import randint
 from time import time
+import datetime
 
 
 class BaseClass:
@@ -20,7 +21,6 @@ class BaseClass:
     proxies = []
     twitter_links = []
     twitch_profiles = []
-    emu = False
 
 
     @staticmethod
@@ -36,4 +36,15 @@ class BaseClass:
         start_time = time()
         while BaseClass.running and time() - start_time < sleep_time:
             continue
+
+    @staticmethod
+    def write_log(log):
+        try:
+            if not isinstance(log, str):
+                return
+            log = f'{"#" * 10} {datetime.datetime.now().time()} {"#" * 10}\n\n{log}\n\n'
+            with open('logs.log', mode='a+', encoding='utf-8') as file:
+                file.write(f'{log}\n')
+        except:
+            pass
 

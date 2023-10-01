@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'AddDevice.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.3.2
+## Created by: Qt User Interface Compiler version 6.2.0
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -15,11 +15,10 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QCheckBox, QDialog, QHBoxLayout,
-    QLabel, QListWidget, QListWidgetItem, QPushButton,
-    QSizePolicy, QSpacerItem, QSpinBox, QVBoxLayout,
-    QWidget)
-import requests
+from PySide6.QtWidgets import (QApplication, QCheckBox, QDialog, QGroupBox,
+    QHBoxLayout, QLabel, QListWidget, QListWidgetItem,
+    QPushButton, QSizePolicy, QSpacerItem, QSpinBox,
+    QVBoxLayout)
 
 class Ui_AddDevice(object):
     def setupUi(self, AddDevice):
@@ -78,6 +77,28 @@ class Ui_AddDevice(object):
 
         self.verticalLayout_2.addWidget(self.deselect_all)
 
+        self.groupBox = QGroupBox(AddDevice)
+        self.groupBox.setObjectName(u"groupBox")
+        self.verticalLayout_3 = QVBoxLayout(self.groupBox)
+        self.verticalLayout_3.setObjectName(u"verticalLayout_3")
+        self.label_2 = QLabel(self.groupBox)
+        self.label_2.setObjectName(u"label_2")
+
+        self.verticalLayout_3.addWidget(self.label_2)
+
+        self.emus = QSpinBox(self.groupBox)
+        self.emus.setObjectName(u"emus")
+        self.emus.setEnabled(True)
+        self.emus.setMinimumSize(QSize(0, 25))
+        self.emus.setMinimum(0)
+        self.emus.setMaximum(1000000000)
+        self.emus.setValue(0)
+
+        self.verticalLayout_3.addWidget(self.emus)
+
+
+        self.verticalLayout_2.addWidget(self.groupBox)
+
         self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
         self.verticalLayout_2.addItem(self.verticalSpacer)
@@ -105,6 +126,8 @@ class Ui_AddDevice(object):
         self.select_by_number.setText(QCoreApplication.translate("AddDevice", u"Select By Number", None))
         self.select_all.setText(QCoreApplication.translate("AddDevice", u"Select All", None))
         self.deselect_all.setText(QCoreApplication.translate("AddDevice", u"Deselect All", None))
+        self.groupBox.setTitle(QCoreApplication.translate("AddDevice", u"Add Emulators:", None))
+        self.label_2.setText(QCoreApplication.translate("AddDevice", u"Amount:", None))
         self.save.setText(QCoreApplication.translate("AddDevice", u"Save", None))
     # retranslateUi
 

@@ -339,7 +339,7 @@ class Ui_MainWindow(object):
         self.spotify_links = QPlainTextEdit(self.tab)
         self.spotify_links.setObjectName(u"spotify_links")
         self.spotify_links.setMinimumSize(QSize(350, 0))
-        self.spotify_links.setMaximumSize(QSize(350, 16777215))
+        self.spotify_links.setMaximumSize(QSize(16777215, 16777215))
         self.spotify_links.setLineWrapMode(QPlainTextEdit.NoWrap)
 
         self.verticalLayout_4.addWidget(self.spotify_links)
@@ -357,7 +357,7 @@ class Ui_MainWindow(object):
         self.proxies = QPlainTextEdit(self.tab)
         self.proxies.setObjectName(u"proxies")
         self.proxies.setMinimumSize(QSize(350, 0))
-        self.proxies.setMaximumSize(QSize(350, 16777215))
+        self.proxies.setMaximumSize(QSize(16777215, 16777215))
         self.proxies.setLineWrapMode(QPlainTextEdit.NoWrap)
 
         self.verticalLayout_6.addWidget(self.proxies)
@@ -375,7 +375,7 @@ class Ui_MainWindow(object):
         self.twitter_links = QPlainTextEdit(self.tab)
         self.twitter_links.setObjectName(u"twitter_links")
         self.twitter_links.setMinimumSize(QSize(350, 0))
-        self.twitter_links.setMaximumSize(QSize(350, 16777215))
+        self.twitter_links.setMaximumSize(QSize(16777215, 16777215))
         self.twitter_links.setLineWrapMode(QPlainTextEdit.NoWrap)
 
         self.verticalLayout_10.addWidget(self.twitter_links)
@@ -393,7 +393,7 @@ class Ui_MainWindow(object):
         self.twitch_profiles = QPlainTextEdit(self.tab)
         self.twitch_profiles.setObjectName(u"twitch_profiles")
         self.twitch_profiles.setMinimumSize(QSize(350, 0))
-        self.twitch_profiles.setMaximumSize(QSize(350, 16777215))
+        self.twitch_profiles.setMaximumSize(QSize(16777215, 16777215))
         self.twitch_profiles.setLineWrapMode(QPlainTextEdit.NoWrap)
 
         self.verticalLayout_13.addWidget(self.twitch_profiles)
@@ -523,12 +523,6 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_9.addLayout(self.horizontalLayout_14)
 
-        self.emu = QCheckBox(self.tab)
-        self.emu.setObjectName(u"emu")
-        self.emu.setChecked(False)
-
-        self.verticalLayout_9.addWidget(self.emu)
-
         self.tabWidget.addTab(self.tab, "")
         self.preview_tab = QWidget()
         self.preview_tab.setObjectName(u"preview_tab")
@@ -645,7 +639,6 @@ class Ui_MainWindow(object):
         self.groupBox_2.setTitle(QCoreApplication.translate("MainWindow", u"Twitch:", None))
         self.label_9.setText(QCoreApplication.translate("MainWindow", u"Stream Time:", None))
         self.label_10.setText(QCoreApplication.translate("MainWindow", u"Seconds", None))
-        self.emu.setText(QCoreApplication.translate("MainWindow", u"Emulator", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), QCoreApplication.translate("MainWindow", u"Settings", None))
         self.running_devices.setText(QCoreApplication.translate("MainWindow", u"Running Devices: 0/0", None))
         self.start.setText(QCoreApplication.translate("MainWindow", u"Start", None))

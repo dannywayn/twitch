@@ -519,7 +519,7 @@
               </property>
               <property name="maximumSize">
                <size>
-                <width>350</width>
+                <width>16777215</width>
                 <height>16777215</height>
                </size>
               </property>
@@ -549,7 +549,7 @@
               </property>
               <property name="maximumSize">
                <size>
-                <width>350</width>
+                <width>16777215</width>
                 <height>16777215</height>
                </size>
               </property>
@@ -579,7 +579,7 @@
               </property>
               <property name="maximumSize">
                <size>
-                <width>350</width>
+                <width>16777215</width>
                 <height>16777215</height>
                </size>
               </property>
@@ -609,7 +609,7 @@
               </property>
               <property name="maximumSize">
                <size>
-                <width>350</width>
+                <width>16777215</width>
                 <height>16777215</height>
                </size>
               </property>
@@ -796,16 +796,6 @@
            </widget>
           </item>
          </layout>
-        </item>
-        <item>
-         <widget class="QCheckBox" name="emu">
-          <property name="text">
-           <string>Emulator</string>
-          </property>
-          <property name="checked">
-           <bool>false</bool>
-          </property>
-         </widget>
         </item>
        </layout>
       </widget>

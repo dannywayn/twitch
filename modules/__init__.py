@@ -7,3 +7,4 @@ from modules.twitter import Twitter
 from modules.spotify import Spotify
 from modules.twitch import Twitch
 from modules.proxy import OXY
+from modules.emulator import Emulator

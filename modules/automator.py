@@ -24,7 +24,7 @@ class Auto:
 
     @classmethod
     def close_keyboard(cls, device):
-        if BaseClass.emu:
+        if device.emu:
             return
         start_time = time.time()
         while BaseClass.running and time.time() - start_time < 2:
@@ -72,6 +72,7 @@ class Auto:
                 cls.close_keyboard(device)
                 return True
             except Exception:
+                print(traceback.format_exc())
                 continue
         return False
 
